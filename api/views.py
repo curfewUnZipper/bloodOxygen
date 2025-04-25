@@ -9,12 +9,14 @@ import numpy as np
 import joblib  # we'll save and load the scaler using joblib
 from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
 
 
 # === STEP 1: Load the trained model ===
 model = load_model(os.path.join(settings.BASE_DIR,'artifacts','SleepApnea-predictor-spo2-pr.h5'))
-import pandas as pd
-df = pd.read_csv(os.path.join(settings.BASE_DIR,'artifacts','Oxygen Dataset Final.csv'))  # Replace with your actual dataset file
+scaler = joblib.load(os.path.join(settings.BASE_DIR, 'artifacts', 'scaler.pkl'))
+
+
 
 @csrf_exempt
 def double_dict(request):
@@ -31,14 +33,7 @@ def double_dict(request):
 
 def getOutput(data):
 
-    X = df[["spo2", "pr"]]  # same features used during training
-    scaler = MinMaxScaler()
-    scaler.fit(X)
-
-    # === STEP 3: Create new input and scale it ===
-    # Example input: spo2 = 95, pulse rate = 76
-    # print(data,type(data))
-    # return (data,type(data))
+   
     new_data = np.array([[data["spo2"], data["pulse"]]])  # shape = (1, 2)
     new_data_scaled = scaler.transform(new_data)
 
