@@ -11,4 +11,4 @@ scipy==1.15.2
 seaborn==0.13.2
 torch==2.7.0
 whitenoise==6.9.0
-numpy==2.2.5
+numpy==2.2.0
