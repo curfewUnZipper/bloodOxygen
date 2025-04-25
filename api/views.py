@@ -11,6 +11,10 @@ from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 
 
+# === STEP 1: Load the trained model ===
+model = load_model(os.path.join(settings.BASE_DIR,'artifacts','SleepApnea-predictor-spo2-pr.h5'))
+import pandas as pd
+df = pd.read_csv(os.path.join(settings.BASE_DIR,'artifacts','Oxygen Dataset Final.csv'))  # Replace with your actual dataset file
 
 @csrf_exempt
 def double_dict(request):
@@ -26,19 +30,6 @@ def double_dict(request):
 
 
 def getOutput(data):
-    # === STEP 1: Load the trained model ===
-    model = load_model(os.path.join(settings.BASE_DIR,'artifacts','SleepApnea-predictor-spo2-pr.h5'))
-
-    # === STEP 2: Load or recreate the scaler ===
-    # You need to reuse the SAME scaler that was used during training.
-    # If you saved the scaler earlier using joblib:
-    # scaler = joblib.load('scaler.save')
-
-    # OR if you didn’t save the scaler earlier, recreate it and fit it again on training data
-    # (But saving it during training is best practice!)
-    # Here’s an example of recreating it from training data:
-    import pandas as pd
-    df = pd.read_csv(os.path.join(settings.BASE_DIR,'artifacts','Oxygen Dataset Final.csv'))  # Replace with your actual dataset file
 
     X = df[["spo2", "pr"]]  # same features used during training
     scaler = MinMaxScaler()
