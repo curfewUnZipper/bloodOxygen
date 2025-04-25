@@ -1,7 +1,5 @@
-this is the test phrase (returns risk level) and this is the accepted format for call:
- {
-   "no_data": "[[99, 16, 36.654748, 95.011801, 118, 72, 41, 0, 96.006188, 1.833629], [83, 12, 36.044191, 98.584497, 111, 84, 50, 0, 79.295332, 1.672735], [79, 12, 36.884979, 95.987129, 130, 70, 22, 1, 79.869933, 1.922334], [66, 15, 36.957178, 97.916267, 131, 77, 61, 1, 53.923400, 1.896381], [72, 16, 36.8, 98, 120, 80, 20, 1, 78, 1.78]]"
- }
+this is the test phrase (returns if oxygen issue) and this is the accepted format for call:
+{"spo2":95,"pulse":84}
 
 -------------------
 "modelVenv" is the virtualEnvironment for this project
